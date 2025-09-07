@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Create article - MyBlog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+  <header class="bg-white shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-indigo-600">MyBlog</a>
+      <nav class="space-x-6">
+        <a href="index.html" class="text-gray-700 hover:text-indigo-600">Accueil</a>
+        <a href="login.html" class="text-gray-700 hover:text-indigo-600">Connexion</a>
+        <a href="register.html" class="text-gray-700 hover:text-indigo-600">Créer un compte</a>
+        <a href="admin.html" class="text-gray-700 hover:text-indigo-600">Admin</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-6xl mx-auto px-4 py-10 grow">
+    <h1 class="text-3xl font-bold mb-6">Créer un nouvel article</h1>
+    <form class="bg-white p-6 rounded-lg shadow space-y-4">
+      <input type="text" placeholder="Titre de l’article" class="w-full border rounded-lg p-3">
+      <textarea placeholder="Contenu de l’article" class="w-full border rounded-lg p-3 h-40"></textarea>
+      <div class="grid grid-cols-3 gap-4">
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" name="tags" value="tech" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span>Tech</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" name="tags" value="design" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span>Design</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" name="tags" value="javascript" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span>JavaScript</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" name="tags" value="tailwind" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span>Tailwind</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" name="tags" value="php" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span>PHP</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" name="tags" value="html" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span>HTML</span>
+        </label>
+      </div>
+      <button class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">Publier</button>
+    </form>
+  </main>
+  <footer class="bg-gray-100 mt-12 py-6 text-center text-gray-500">
+  © 2025 MyBlog – Tous droits réservés
+</footer>
+</body>
+</html>

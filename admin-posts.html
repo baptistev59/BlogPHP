@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin-posts - MyBlog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+  <header class="bg-white shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-indigo-600">MyBlog</a>
+      <nav class="space-x-6">
+        <a href="index.html" class="text-gray-700 hover:text-indigo-600">Accueil</a>
+        <a href="login.html" class="text-gray-700 hover:text-indigo-600">Connexion</a>
+        <a href="register.html" class="text-gray-700 hover:text-indigo-600">Créer un compte</a>
+        <a href="admin.html" class="text-gray-700 hover:text-indigo-600">Admin</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-6xl mx-auto px-4 py-10 grow">
+    <h1 class="text-3xl font-bold mb-6  min-w-[700px]">Gestion des articles</h1>
+    <a href="create-article.html" class="mb-6 inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">Nouvel article</a>
+    <table class="w-full bg-white shadow rounded-lg">
+      <thead class="bg-gray-100 text-left">
+        <tr>
+          <th class="p-4">Titre</th>
+          <th class="p-4">Auteur</th>
+          <th class="p-4">Date</th>
+          <th class="p-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t">
+          <td class="p-4">Mon premier article</td>
+          <td class="p-4">Admin</td>
+          <td class="p-4">12/08/2025</td>
+          <td class="p-4 space-x-2">
+            <a href="#" class="text-indigo-600 hover:underline">Modifier</a>
+            <a href="#" class="text-red-600 hover:underline">Supprimer</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  <footer class="bg-gray-100 mt-12 py-6 text-center text-gray-500">
+  © 2025 MyBlog – Tous droits réservés
+</footer>
+</body>
+</html>
