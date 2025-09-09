@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 <main class="max-w-6xl mx-auto px-4 py-10 grow">
   <h1 class="text-3xl font-bold mb-6  min-w-[700px]">Gestion des articles</h1>
-  <a href="create-article.html" class="mb-6 inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">Nouvel article</a>
+  <a href="create-article.php" class="mb-6 inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">Nouvel article</a>
   <table class="w-full bg-white shadow rounded-lg">
     <thead class="bg-gray-100 text-left">
       <tr>

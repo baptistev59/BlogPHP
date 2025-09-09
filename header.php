@@ -14,8 +14,8 @@
             <nav class="space-x-6">
                 <a href="index.php" class="text-gray-700 hover:text-indigo-600">Accueil</a>
                 <a href="login.php" class="text-gray-700 hover:text-indigo-600">Connexion</a>
-                <a href="register.html" class="text-gray-700 hover:text-indigo-600">Créer un compte</a>
-                <a href="admin.html" class="text-gray-700 hover:text-indigo-600">Admin</a>
+                <a href="register.php" class="text-gray-700 hover:text-indigo-600">Créer un compte</a>
+                <a href="admin.php" class="text-gray-700 hover:text-indigo-600">Admin</a>
             </nav>
         </div>
     </header>
