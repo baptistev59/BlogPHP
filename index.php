@@ -1,24 +1,13 @@
 <?php
-$articles = [
-  [
-    'title' => 'Titre de l’article 1',
-    'descript' => 'Petit résumé du premier article pour donner envie de cliquer...',
-    'author' => 'Admin',
-    'date' => '12/08/2025'
-  ],
-  [
-    'title' => 'Titre de l’article 2',
-    'descript' => 'Petit résumé du deuxième article pour donner envie de cliquer...',
-    'author' => 'Bapt',
-    'date' => '13/08/2025'
-  ],
-  [
-    'title' => 'Titre de l’article 3',
-    'descript' => 'Petit résumé du troisième article pour donner envie de cliquer...',
-    'author' => 'Tom',
-    'date' => '14/08/2025'
-  ]
-]
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+$pdo = new PDO('mysql:host=localhost;port=3308;dbname=blogphp;charset=utf8', 'root', '');
+
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$request = $pdo->query('SELECT p.*, u.name FROM posts p LEFT JOIN users u ON p.id_user = u.id');
+$articles = $request->fetchAll();
 ?>
 
 <?php include 'header.php' ?>
@@ -30,11 +19,11 @@ $articles = [
     foreach ($articles as $article) {
     ?>
       <article class="bg-white shadow rounded-xl p-6">
-        <h2 class="text-xl font-semibold mb-2"><a href="article.html" class="hover:text-indigo-600"><?php echo $article['title']; ?></a></h2>
-        <p class="text-gray-600 mb-4"><?php echo $article['descript']; ?></p>
+        <h2 class="text-xl font-semibold mb-2"><a href="article.php" class="hover:text-indigo-600"><?php echo $article['title']; ?></a></h2>
+        <p class="text-gray-600 mb-4"><?php echo $article['resume']; ?></p>
         <div class="flex justify-between text-sm text-gray-500">
-          <span>Par <?php echo $article['author']; ?></span>
-          <span><?php echo $article['date']; ?></span>
+          <span>Par <?php echo $article['name']; ?></span>
+          <span><?php echo date('d/m/Y', strtotime($article['date'])); ?></span>
         </div>
       </article>
     <?php } ?>
