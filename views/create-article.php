@@ -6,7 +6,7 @@
       <?= isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '' ?>
     </div>
   <?php endif; ?>
-  <form class="bg-white p-6 rounded-lg shadow space-y-4" method="post" action="create-article-traitement.php">
+  <form class="bg-white p-6 rounded-lg shadow space-y-4" method="post" action="index.php?page=create-post-valid">
     <input type="text" name="title" placeholder="Titre de l’article" class="w-full border rounded-lg p-3">
     <textarea name="resume" placeholder="Résumé de l’article" class="w-full border rounded-lg p-3 h-20"></textarea>
     <textarea name="content" placeholder="Contenu de l’article" class="w-full border rounded-lg p-3 h-40"></textarea>
