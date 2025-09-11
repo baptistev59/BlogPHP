@@ -1,12 +1,14 @@
 <?php
 
-require 'models\posts.models.php';
+require 'models\PostsManager.php';
 
 class PostsController
+
 {
     public function home()
     {
-        $articles = getPosts();
+        $postsManager = new PostsManager();
+        $articles = $postsManager->getPosts();
         require 'views\home.php';
     }
 

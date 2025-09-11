@@ -4,33 +4,35 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-require 'controllers\admin.controller.php';
-require 'controllers\posts.controller.php';
+require 'controllers\AdminController.php';
+require 'controllers\PostsController.php';
 
 $page = $_GET['page'] ?? 'home';
+$adminController = new AdminController();
+$postsController = new PostsController();
 
 switch ($page) {
     case 'home':
-        home();
+        $postsController->home();
         break;
 
     case 'admin':
-        admin();
+        $adminController->admin();
         break;
 
     case 'create-post':
-        adminCreatePost();
+        $adminController->adminCreatePost();
         break;
 
     case 'create-post-valid':
-        adminCreatePostValid();
+        $adminController->adminCreatePostValid();
         break;
 
     case 'admin-posts':
-        adminPosts();
+        $adminController->adminPosts();
         break;
 
     default:
-        home();
+        $postsController->home();
         break;
 }
