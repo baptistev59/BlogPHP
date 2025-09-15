@@ -1,6 +1,6 @@
 <?php
 
-require 'models\PostsManager.php';
+require_once 'models\PostsManager.php';
 
 class PostsController
 

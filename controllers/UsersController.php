@@ -1,5 +1,5 @@
 <?php
-require 'models\UsersManager.php';
+require_once 'models\UsersManager.php';
 
 class UsersController
 {
@@ -33,7 +33,7 @@ class UsersController
             } else {
                 $_SESSION['user_id'] = $user->getId();
                 $_SESSION['user_name'] = $user->getName();
-                header('Location: index.php?page=login');
+                header('Location: index.php?page=home');
             }
         }
     }

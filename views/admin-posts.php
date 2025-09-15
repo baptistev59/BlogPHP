@@ -12,15 +12,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="border-t">
-        <td class="p-4">Mon premier article</td>
-        <td class="p-4">Admin</td>
-        <td class="p-4">12/08/2025</td>
-        <td class="p-4 space-x-2">
-          <a href="#" class="text-indigo-600 hover:underline">Modifier</a>
-          <a href="#" class="text-red-600 hover:underline">Supprimer</a>
-        </td>
-      </tr>
+      <?php foreach ($articles as $article) { ?>
+        <tr class="border-t">
+          <td class="p-4"><?php echo $article->getTitle(); ?></td>
+          <td class="p-4"><?php echo $article->getNameUser(); ?></td>
+          <td class="p-4"><?php echo date('d/m/Y', strtotime($article->getDate())); ?></td>
+          <td class="p-4 space-x-2">
+            <a href="index.php?page=update-post&id=<?php echo $article->getId(); ?>" class="text-indigo-600 hover:underline">Modifier</a>
+            <a href="index.php?page=delete-post&id=<?php echo $article->getId(); ?>" class="text-red-600 hover:underline">Supprimer</a>
+          </td>
+        </tr>
+      <?php } ?>
     </tbody>
   </table>
 </main>

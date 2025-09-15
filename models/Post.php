@@ -8,6 +8,7 @@ class Post
     private string $resume;
     private string $date;
     private ?string $name_user;
+    private ?string $image;
 
     public function __construct($data)
     {
@@ -16,7 +17,8 @@ class Post
         $this->content = $data['content'];
         $this->resume = $data['resume'];
         $this->date = $data['date'];
-        $this->name_user = $data['name'];
+        $this->name_user = $data['name'] ?? null;
+        $this->image = $data['image'] ?? null;
     }
 
     public function getId()
@@ -46,5 +48,10 @@ class Post
     public function getNameUser()
     {
         return $this->name_user;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 }

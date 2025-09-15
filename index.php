@@ -6,9 +6,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-require 'controllers\AdminController.php';
-require 'controllers\PostsController.php';
-require 'controllers\UsersController.php';
+require_once 'controllers\AdminController.php';
+require_once 'controllers\PostsController.php';
+require_once 'controllers\UsersController.php';
 
 $page = $_GET['page'] ?? 'home';
 $adminController = new AdminController();
@@ -56,6 +56,17 @@ switch ($page) {
         $usersController->logout();
         break;
 
+    case 'delete-post':
+        $adminController->deletePost();
+        break;
+
+    case 'update-post':
+        $adminController->updatePost();
+        break;
+
+    case 'update-post-valid':
+        $adminController->updatePostValid();
+        break;
     default:
         $postsController->home();
         break;

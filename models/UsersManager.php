@@ -1,13 +1,13 @@
 <?php
 
-require 'models\User.php';
+require_once 'models\User.php';
 
 class UsersManager
 {
 
     private function connectDB(): PDO
     {
-        $pdo = new PDO('mysql:host=localhost;port=3308;dbname=blogphp;charset=utf8', 'root', '');
+        $pdo = new PDO('mysql:host=localhost;port=3306;dbname=blogphp;charset=utf8', 'root', '');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
     }
