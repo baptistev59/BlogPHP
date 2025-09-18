@@ -1,25 +1,38 @@
 <?php include 'header.php' ?>
 <main class="max-w-6xl mx-auto px-4 py-10 grow">
   <article class="mb-12 min-w-[700px]">
-    <h1 class="text-4xl font-bold mb-4">Titre de l’article</h1>
-    <p class="text-gray-500 mb-6">Par Admin • 12/08/2025</p>
-    <img src="assets/img/article1.jpg" alt="" class="rounded-lg mb-6">
-    <p class="leading-relaxed mb-6">Contenu complet de l’article... Lorem ipsum dolor sit amet...</p>
+    <h1 class="text-4xl font-bold mb-4"><?php echo $article->getTitle(); ?></h1>
+    <p class="text-gray-500 mb-6">Par Admin • <?php echo date('d/m/Y', strtotime($article->getDate())); ?></p>
+    <?php if ($article->getImage()) { ?>
+      <img class="rounded-lg mb-4" alt="<?php echo $article->getTitle(); ?>" src="uploads/<?php echo $article->getImage(); ?>" />
+    <?php } ?>
+    <p class="leading-relaxed mb-6"><?php echo $article->getContent(); ?></p>
     <div class="flex gap-2">
-      <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">#Tag1</span>
-      <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">#Tag2</span>
+      <?php foreach ($tags as $tag) { ?>
+        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm" name='tag[]'>#<?php echo $tag->getName(); ?></span>
+      <?php } ?>
     </div>
   </article>
   <section>
     <h2 class="text-2xl font-semibold mb-4">Commentaires</h2>
-    <div class="space-y-4 mb-6">
-      <div class="bg-white p-4 rounded-lg shadow">
-        <p class="text-gray-700">Super article !</p>
-        <p class="text-sm text-gray-500 mt-2">Posté par Jean, 12/08/2025</p>
+    <?php foreach ($comments as $comment) { ?>
+      <div class="space-y-4 mb-6">
+        <div class="bg-white p-4 rounded-lg shadow">
+          <p class="text-gray-700"><?php echo $comment->getContent(); ?></p>
+          <p class="text-sm text-gray-500 mt-2">Posté par <?php echo $comment->getAuthor(); ?>, <?php echo date('d/m/Y', strtotime($comment->getDate())); ?></p>
+        </div>
       </div>
-    </div>
-    <form class="bg-white p-6 rounded-lg shadow space-y-4">
-      <textarea placeholder="Votre commentaire..." class="w-full border rounded-lg p-3"></textarea>
+    <?php } ?>
+    <?php if (count($comments) === 0) { ?>
+      <div class="space-y-4 mb-6">
+        <div class="bg-white p-4 rounded-lg shadow">
+          <p class="text-gray-700"> Aucun commentaire !</p>
+        </div>
+      </div>
+    <?php } ?>
+    <form class="bg-white p-6 rounded-lg shadow space-y-4" method="post" action="index.php?page=comment&id=<?php echo $article->getId(); ?>">
+      <input type="text" name="author" placeholder="Auteur du commentaire" class="w-full border rounded-lg p-3">
+      <textarea placeholder="Votre commentaire..." name="content" class="w-full border rounded-lg p-3"></textarea>
       <button class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">Envoyer</button>
     </form>
   </section>

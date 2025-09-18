@@ -16,26 +16,17 @@
     <textarea name="resume" placeholder="Résumé de l’article" class="w-full border rounded-lg p-3 h-20"><?php echo $article->getResume(); ?></textarea>
     <textarea name="content" placeholder="Contenu de l’article" class="w-full border rounded-lg p-3 h-40"><?php echo $article->getContent(); ?></textarea>
     <div class="grid grid-cols-3 gap-4">
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" name="tags" value="tech" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-        <span>Tech</span>
-      </label>
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" name="tags" value="design" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-        <span>Design</span>
-      </label>
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" name="tags" value="javascript" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-        <span>JavaScript</span>
-      </label>
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" name="tags" value="tailwind" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-        <span>Tailwind</span>
-      </label>
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" name="tags" value="php" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-        <span>PHP</span>
-      </label>
+      <?php
+      foreach ($tags as $tag) {
+      ?>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" name="tags[]" value="<?= $tag->getId(); ?>"
+            <?= in_array($tag->getId(), $articleTagIds) ? 'checked' : ''; ?>>
+          <span class="ml-1"><?= htmlspecialchars($tag->getName()); ?></span>
+        </label>
+      <?php
+      }
+      ?>
       <label class="flex items-center space-x-2">
         <input type="checkbox" name="tags" value="html" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
         <span>HTML</span>

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'models\PostsManager.php';
+require_once 'models\TagsManager.php';
 
 class AdminController
 {
@@ -17,6 +18,8 @@ class AdminController
         $id = $_GET['id'];
         $postsManager = new PostsManager();
         $postsManager->deletePost($id);
+        $postsManager = new PostsManager();
+        $postsManager->deletePostTags($id);
         header('Location: index.php?page=admin-posts');
     }
 
@@ -30,9 +33,15 @@ class AdminController
             header('Location: index.php?page=home');
             exit;
         }
-        $id = $_GET['id'];
+        $id = intval($_GET['id']);
         $postsManager = new PostsManager();
         $article = $postsManager->getPost($id);
+
+        $allTags = $postsManager->getAllTags();
+        $tags = $postsManager->getTagsPost($id);
+
+        $articleTagIds = array_map(fn($tag) => $tag->getId(), $tags);
+
         require 'views\update-article.php';
     }
 
@@ -51,6 +60,8 @@ class AdminController
             header('Location: index.php?page=login');
             exit;
         }
+        $tagsManager = new TagsManager();
+        $tags = $tagsManager->getTags();
         require 'views\create-article.php';
     }
 
@@ -66,6 +77,18 @@ class AdminController
         require 'views\admin-posts.php';
     }
 
+    public function adminTags()
+    {
+        if (!isset($_SESSION['user_id'])) {
+
+            header('Location: index.php?page=login');
+            exit;
+        }
+        $tagsManager = new TagsManager();
+        $tags = $tagsManager->getTags();
+        require 'views\admin-tags.php';
+    }
+
     public function adminCreatePostValid()
     {
         if (!isset($_SESSION['user_id'])) {
@@ -75,6 +98,11 @@ class AdminController
         $title = trim($_POST['title']);
         $resume = trim($_POST['resume']);
         $content = trim($_POST['content']);
+        $tags = $_POST['tags'];
+
+        // var_dump($tags);
+        // die;
+
         $newFileName = null;
 
 
@@ -108,7 +136,7 @@ class AdminController
             header('Location: index.php?page=create-post&error=validation');
         } else {
             $postsManager = new PostsManager();
-            $postsManager->createPost($title, $content, $resume, $newFileName ?? null);
+            $postsManager->createPost($title, $content, $resume, $newFileName ?? null, $tags);
             header('Location: index.php?page=home');
             exit;
         }
@@ -130,6 +158,7 @@ class AdminController
         $title = trim($_POST['title']);
         $resume = trim($_POST['resume']);
         $content = trim($_POST['content']);
+        $tags = $_POST['tags'] ?? [];
 
         $postsManager = new PostsManager();
         $post = $postsManager->getPost($id);
@@ -172,15 +201,129 @@ class AdminController
             exit;
         }
 
+        if (is_string($tags)) {
+            $tags = [$tags]; // force en tableau si un seul tag envoyé en tant que string
+        }
+
         // Mise à jour en base
-        // var_dump($newFileName);
+        // var_dump($tags);
         // exit;
-        $postsManager->updatePost($title, $content, $resume, $newFileName, $id);
+        $postsManager->updatePost($title, $content, $resume, $newFileName, $id, $tags);
 
         header('Location: index.php?page=home');
         exit;
     }
 
+    public function createTag()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?page=login');
+            exit;
+        }
+        $name = $_POST['name'];
+
+        if (!$name) {
+            header('Location: index.php?page=admin-tags');
+            exit;
+        } else {
+            $tagsManager = new TagsManager();
+            $tagsManager->createTag($name);
+            header('Location: index.php?page=admin-tags');
+        }
+    }
+
+    public function deleteTag()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?page=login');
+            exit;
+        }
+        if (!isset($_GET['id'])) {
+            header('Location: index.php?page=home');
+            exit;
+        }
+
+        $tagId = intval($_GET['id']);
+
+        $postsManager = new PostsManager();
+
+        // Vérifier si le tag est utilisé
+        $count = $postsManager->countPostsByTag($tagId);
+        if ($count > 0) {
+            // Redirection avec message d'erreur
+            header('Location: index.php?page=admin-tags&error=taginuse&count=' . $count);
+            exit;
+        }
+
+        // Supprimer le tag
+        $tagsManager = new TagsManager();
+        $tagsManager->deleteTag($tagId);
+
+        header('Location: index.php?page=admin-tags&success=deleted');
+        exit;
+    }
+
+    public function updateTag()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?page=login');
+            exit;
+        }
+        if (!isset($_GET['id'])) {
+            header('Location: index.php?page=home');
+            exit;
+        }
+        $id = intval($_GET['id']);
+        $tagsManager = new TagsManager();
+        $tag = $tagsManager->getTagById($id);
+        // var_dump($id); // <-- debug
+        // exit;
+        if (!$tag) {
+            header('Location: index.php?page=admin-tags&error=notfound');
+            exit;
+        }
+
+        $name = trim($tag['name'] ?? '');
+
+        require 'views\update-tag.php';
+    }
+
+    public function updateTagValid()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?page=login');
+            exit;
+        }
+
+        if (!isset($_GET['id'])) {
+            header('Location: index.php?page=home');
+            exit;
+        }
+
+        $id = intval($_GET['id']);
+        $name = trim($_POST['name'] ?? '');
+
+        $tagsManager = new TagsManager();
+        $tag = $tagsManager->getTagById($id);
+
+        if (!$tag || !is_array($tag)) {
+            header('Location: index.php?page=admin-tags&error=notfound');
+            exit;
+        }
+
+        if (strlen($name) < 1) {
+            header('Location: index.php?page=update-tag&id=' . $id . '&error=validation');
+            exit;
+        }
+
+        // Mise à jour en base
+        // var_dump($tag);
+        // exit;
+        $tagsManager->updateTag($name, $id);
+
+        header('Location: index.php?page=admin-tags&success=updated');
+        exit;
+    }
 
     private function isLoged()
     {

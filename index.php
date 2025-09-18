@@ -36,6 +36,10 @@ switch ($page) {
         $adminController->adminPosts();
         break;
 
+    case 'admin-tags':
+        $adminController->adminTags();
+        break;
+
     case 'register':
         $usersController->register();
         break;
@@ -60,13 +64,39 @@ switch ($page) {
         $adminController->deletePost();
         break;
 
+    case 'delete-tag':
+        $adminController->deleteTag();
+        break;
+
     case 'update-post':
         $adminController->updatePost();
+        break;
+
+    case 'update-tag':
+        $adminController->updateTag();
         break;
 
     case 'update-post-valid':
         $adminController->updatePostValid();
         break;
+
+    case 'update-tag-valid':
+        $adminController->updateTagValid();
+        break;
+
+    case 'post':
+        $postsController->post();
+        break;
+
+    case 'comment':
+        $postsController->comment();
+        break;
+
+
+    case 'create-tag':
+        $adminController->createTag();
+        break;
+
     default:
         $postsController->home();
         break;

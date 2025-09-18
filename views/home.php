@@ -7,11 +7,11 @@
     foreach ($articles as $article) {
     ?>
       <article class="bg-white shadow rounded-xl p-6">
+        <h2 class="text-xl font-semibold mb-2"><a href="index.php?page=post&id=<?php echo $article->getId(); ?>" class="hover:text-indigo-600"><?php echo $article->getTitle(); ?></a></h2>
         <?php if ($article->getImage()) { ?>
           <img class="rounded-lg mb-4" alt="<?php echo $article->getTitle(); ?>" src="uploads/<?php echo $article->getImage(); ?>" />
         <?php } ?>
 
-        <h2 class="text-xl font-semibold mb-2"><a href="article.php" class="hover:text-indigo-600"><?php echo $article->getTitle(); ?></a></h2>
         <p class="text-gray-600 mb-4"><?php echo $article->getResume(); ?></p>
         <div class="flex justify-between text-sm text-gray-500">
           <span>Par <?php echo $article->getNameUser(); ?></span>
